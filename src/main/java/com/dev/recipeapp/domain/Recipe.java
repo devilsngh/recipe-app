@@ -11,9 +11,17 @@ public class Recipe {
     private String description;
     private Integer prepTime;
     private Integer cookTime;
-    private Integer Servings;
+    private Integer servings;
     private String url;
     private String directions;
+
+    @ManyToMany
+    @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name="recipe_id"),
+            inverseJoinColumns = @JoinColumn(name="category_id"))
+    private Set<Category> categories;
+
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients;
@@ -60,11 +68,11 @@ public class Recipe {
     }
 
     public Integer getServings() {
-        return Servings;
+        return servings;
     }
 
     public void setServings(Integer servings) {
-        Servings = servings;
+        this.servings = servings;
     }
 
     public String getUrl() {
@@ -81,6 +89,14 @@ public class Recipe {
 
     public void setDirections(String directions) {
         this.directions = directions;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public Set<Ingredient> getIngredients() {
@@ -105,5 +121,13 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 }

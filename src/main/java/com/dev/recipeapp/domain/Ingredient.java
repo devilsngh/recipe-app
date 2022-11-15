@@ -18,7 +18,6 @@ public class Ingredient {
     private UnitOfMeasure uom;
 
     public Ingredient() {
-
     }
 
     public Long getId() {
